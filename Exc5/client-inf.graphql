@@ -9,6 +9,8 @@ type Client {
     id: ID!
     name: String
     age: Int
+    documents: [Document]
+    relatives: [Relative]
 }
 
 type Document {
@@ -27,30 +29,20 @@ type Relative {
 }
 
 
-# Example queries
-query {
-    client(id: "1") {
-        id
-        name
-    },
-    documents(clientId: "1") {
-        id
-        type
-        number
-        expiryDate
-    }
-}
-
+# Example query
 query {
     client(id: "1") {
         id
         name,
-        age
+        documents {
+            id,
+            type,
+            number,
+        }
+        relatives {
+            id,
+            relationType,
+            name
+        }
     },
-    relatives(clientId: "1") {
-        id
-        relationType
-        name
-        age
-    }
 }
